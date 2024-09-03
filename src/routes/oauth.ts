@@ -13,7 +13,7 @@ router.get(
   passport.authenticate("google", {
     scope: ["profile", "email"],
     successMessage: "success",
-    successRedirect: "http://localhost:5000",
+    successRedirect: "http://localhost:5173/redirect",
     failureRedirect: "/login/failed",
   })
 );

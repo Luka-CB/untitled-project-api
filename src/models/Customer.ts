@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-interface customerIFace {
+export interface customerIFace {
+  _id: string;
   firstName: string;
   lastName: string;
   username: string;
@@ -9,7 +10,7 @@ interface customerIFace {
   password: string;
   image: string;
   imageId: string;
-  isCustomer: boolean;
+  authType: string;
   provider: string;
   providerId: string;
 }
@@ -23,7 +24,7 @@ const customerSchema = new mongoose.Schema<customerIFace>(
     password: { type: String },
     image: { type: String },
     imageId: { type: String },
-    isCustomer: { type: Boolean, default: true },
+    authType: { type: String, default: "customer" },
     provider: { type: String, default: "local" },
     providerId: { type: String },
   },

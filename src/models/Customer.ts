@@ -8,6 +8,7 @@ export interface customerSchemaIFace {
   username: string;
   email: string;
   password: string;
+  gender: string;
   image: string;
   imageId: string;
   authType: string;
@@ -22,6 +23,7 @@ const customerSchema = new mongoose.Schema<customerSchemaIFace>(
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String },
+    gender: { type: String, required: true },
     image: { type: String },
     imageId: { type: String },
     authType: { type: String, default: "customer" },

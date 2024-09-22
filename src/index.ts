@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
 import cors from "cors";
+import { errorHandler, notFound } from "./middlewares/errorMiddlewares";
 
 dotenv.config();
 import "colors";
@@ -326,5 +327,8 @@ import usersRouter from "./routes/users";
 
 app.use("/api/oauth", oauthRouter);
 app.use("/api/users", usersRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is up and running on port ${PORT}`));

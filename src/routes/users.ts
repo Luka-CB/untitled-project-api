@@ -1,8 +1,9 @@
 import express from "express";
-import { fetchSessionUser } from "../controllers/usersController";
+import { fetchSessionUser, logout } from "../controllers/usersController";
 
 const router = express.Router();
 
 router.get("/fetch-session-user", fetchSessionUser);
+router.get("/logout", logout);
 
 export default router;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-export interface customerIFace {
+export interface customerSchemaIFace {
   _id: string;
   firstName: string;
   lastName: string;
@@ -15,7 +15,7 @@ export interface customerIFace {
   providerId: string;
 }
 
-const customerSchema = new mongoose.Schema<customerIFace>(
+const customerSchema = new mongoose.Schema<customerSchemaIFace>(
   {
     firstName: { type: String },
     lastName: { type: String },
@@ -40,4 +40,4 @@ customerSchema.pre("save", async function (next) {
   }
 });
 
-export default mongoose.model<customerIFace>("Customer", customerSchema);
+export default mongoose.model<customerSchemaIFace>("Customer", customerSchema);

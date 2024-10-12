@@ -3,6 +3,7 @@ import connectDB from "./config/db";
 import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import { errorHandler, notFound } from "./middlewares/errorMiddlewares";
 
@@ -16,6 +17,7 @@ connectDB();
 const app = express();
 
 app.use(express.json({ limit: "25mb" }));
+app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost:5173"],

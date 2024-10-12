@@ -1,7 +1,12 @@
 import { RequestHandler } from "express";
 import expressAsyncHandler from "express-async-handler";
+import jwt from "jsonwebtoken";
 import { customerSchemaIFace } from "../models/Customer";
-import { generateToken, uploadImage } from "../utils";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  uploadImage,
+} from "../utils";
 import Customer from "../models/Customer";
 
 ///////////////--FETCH SESSION USER--///////////////
@@ -15,7 +20,7 @@ export const fetchSessionUser: RequestHandler = expressAsyncHandler(
       return;
     }
 
-    const token = generateToken(user._id);
+    const token = "sd";
 
     res.status(200).json({
       _id: user._id,
@@ -55,15 +60,56 @@ export const registerCustomer: RequestHandler = expressAsyncHandler(
 
     if (!newCustomer) throw new Error("Something went wrong!");
 
-    const token = generateToken(newCustomer._id);
+    const accessToken = generateAccessToken(newCustomer._id);
+    const refreshToken = generateRefreshToken(newCustomer._id);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+    });
+
     const user = {
       _id: newCustomer._id,
       username: newCustomer.username,
       image: newCustomer.image,
-      token,
+      accessToken,
     };
 
     res.status(200).json({ msg: "success", user });
+  }
+);
+
+export const test: RequestHandler = expressAsyncHandler(
+  async (req, res, next) => {
+    res.json({ msg: "here's your requested file" });
+  }
+);
+
+///////////////--REFRESH TOKEN--///////////////
+// ROUTE - POST - api/users/refresh-token
+export const getRefreshToken: RequestHandler = expressAsyncHandler(
+  async (req, res, next) => {
+    const { refreshToken } = req.cookies;
+    if (!refreshToken) throw new Error("No refresh token provided!");
+
+    jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_KEY as string,
+      (err: any, user: any) => {
+        if (err) return res.status(403).json({ msg: "Invalid refresh token!" });
+
+        const accessToken = generateAccessToken(user.id);
+        const refreshToken = generateRefreshToken(user.id);
+
+        res.cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV !== "development",
+          sameSite: "strict",
+        });
+        res.status(200).json({ accessToken });
+      }
+    );
   }
 );
 

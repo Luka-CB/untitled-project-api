@@ -20,13 +20,20 @@ export const fetchSessionUser: RequestHandler = expressAsyncHandler(
       return;
     }
 
-    const token = "sd";
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+    });
 
     res.status(200).json({
       _id: user._id,
       username: user.username,
       image: user.image,
-      token,
+      accessToken,
     });
   }
 );
@@ -116,10 +123,12 @@ export const getRefreshToken: RequestHandler = expressAsyncHandler(
 ///////////////--LOGOUT USER--///////////////
 // ROUTE - api/users/logout
 export const logout: RequestHandler = (req, res, next) => {
-  req.logOut((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.status(200).json({ msg: "success" });
+  const cookies = req.cookies;
+  if (!cookies?.refreshToken) return res.sendStatus(204);
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== "development",
+    sameSite: "strict",
   });
+  res.status(200).json({ msg: "Success" });
 };

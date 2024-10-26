@@ -27,6 +27,7 @@ export const fetchSessionUser: RequestHandler = expressAsyncHandler(
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
@@ -74,6 +75,7 @@ export const registerCustomer: RequestHandler = expressAsyncHandler(
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     const user = {
@@ -113,6 +115,7 @@ export const getRefreshToken: RequestHandler = expressAsyncHandler(
           httpOnly: true,
           secure: process.env.NODE_ENV !== "development",
           sameSite: "strict",
+          maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         res.status(200).json({ accessToken });
       }

@@ -326,9 +326,11 @@ app.post("/create", (req, res, next) => {
 //------ROUTES------//
 import oauthRouter from "./routes/oauth";
 import usersRouter from "./routes/users";
+import addressRouter from "./routes/address";
 
 app.use("/api/oauth", oauthRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/address", addressRouter);
 
 app.use(notFound);
 app.use(errorHandler);

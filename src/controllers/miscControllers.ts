@@ -4,9 +4,10 @@ import Region from "../models/Region";
 import Municipality from "../models/Municipality";
 import Village from "../models/Village";
 import { RequestHandler } from "express";
+import Category from "../models/Category";
 
 ///////////////--FETCH CITIES--///////////////
-// ROUTE - GET - api/address/cities
+// ROUTE - GET - api/misc/cities
 export const getCities: RequestHandler = expressAsyncHandler(
   async (req, res, next) => {
     const cities = await City.find();
@@ -17,7 +18,7 @@ export const getCities: RequestHandler = expressAsyncHandler(
 );
 
 ///////////////--FETCH REGIONS--///////////////
-// ROUTE - GET - api/address/regions
+// ROUTE - GET - api/misc/regions
 export const getRegions: RequestHandler = expressAsyncHandler(
   async (req, res, next) => {
     const regions = await Region.find();
@@ -38,5 +39,16 @@ export const getRegions: RequestHandler = expressAsyncHandler(
       return { ...region._doc, municipalities: regionMnps };
     });
     res.status(200).json({ regions: modifiedRegions });
+  }
+);
+
+///////////////--FETCH CATEGORIES--///////////////
+// ROUTE - GET - api/misc/categories
+export const getCategories: RequestHandler = expressAsyncHandler(
+  async (req, res, next) => {
+    const categories = await Category.find();
+    if (!categories) throw new Error("Request failed!");
+
+    res.status(200).json(categories);
   }
 );

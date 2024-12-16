@@ -34,6 +34,7 @@ export const fetchSessionUser: RequestHandler = expressAsyncHandler(
       _id: user._id,
       username: user.username,
       image: user.image,
+      authType: user.authType,
       accessToken,
     });
   }
@@ -82,16 +83,11 @@ export const registerCustomer: RequestHandler = expressAsyncHandler(
       _id: newCustomer._id,
       username: newCustomer.username,
       image: newCustomer.image,
+      authType: newCustomer.authType,
       accessToken,
     };
 
     res.status(200).json({ msg: "success", user });
-  }
-);
-
-export const test: RequestHandler = expressAsyncHandler(
-  async (req, res, next) => {
-    res.json({ msg: "here's your requested file" });
   }
 );
 
@@ -124,7 +120,7 @@ export const getRefreshToken: RequestHandler = expressAsyncHandler(
 );
 
 ///////////////--LOGOUT USER--///////////////
-// ROUTE - api/users/logout
+// ROUTE - GET - api/users/logout
 export const logout: RequestHandler = (req, res, next) => {
   const cookies = req.cookies;
   if (!cookies?.refreshToken) return res.sendStatus(204);

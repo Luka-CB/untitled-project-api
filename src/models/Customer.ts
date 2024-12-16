@@ -14,6 +14,7 @@ export interface customerSchemaIFace {
   authType: string;
   provider: string;
   providerId: string;
+  isVerified: boolean;
 }
 
 const customerSchema = new mongoose.Schema<customerSchemaIFace>(
@@ -26,9 +27,14 @@ const customerSchema = new mongoose.Schema<customerSchemaIFace>(
     gender: { type: String, required: true },
     image: { type: String },
     imageId: { type: String },
-    authType: { type: String, default: "customer" },
+    authType: {
+      type: String,
+      enum: ["customer", "business"],
+      default: "customer",
+    },
     provider: { type: String, default: "local" },
     providerId: { type: String },
+    isVerified: { type: Boolean, default: false },
   },
   {
     timestamps: true,

@@ -41,284 +41,284 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-import Village from "./models/Village";
+// import Village from "./models/Village";
 
 app.post("/create", (req, res, next) => {
-  Village.insertMany([
-    {
-      name: {
-        en: "Akhalbediseuli",
-        ka: "ახალბედისეული",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Akhalsheni",
-        ka: "ახალშენი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Bangveti",
-        ka: "ბანგვეთი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Besiauri",
-        ka: "ბესიაური",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Gamogma Noga",
-        ka: "გამოღმა ნოღა",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "gagma Noga",
-        ka: "გაღმა ნოღა",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Gelaveri",
-        ka: "გელავერი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Gvazauri",
-        ka: "გვაზაური",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Gvashtibi",
-        ka: "გვაშტიბი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Gochajikhaishi",
-        ka: "გოჩაჯიხაიში",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Dedalauri",
-        ka: "დედალაური",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Didi gubi",
-        ka: "დიდი გუბი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Didi Kukhi",
-        ka: "დიდი კუხი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Zeda Gordi",
-        ka: "ზედა გორდი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Zeda Kinchkha",
-        ka: "ზედა კინჩხა",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Ivandidi",
-        ka: "ივანდიდი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Kinchkhaperdi",
-        ka: "კინჩხაფერდი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Kontuati",
-        ka: "კონტუათი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Lepilie",
-        ka: "ლეფილიე",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Matkhoji",
-        ka: "მათხოჯი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Nakhakhulevi",
-        ka: "ნახახულევი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Oragveti",
-        ka: "ორაგვეთი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Patara Gubi",
-        ka: "პატარა გუბი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "patara Kukhi",
-        ka: "პატარა კუხი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Patara Jikhaishi",
-        ka: "პატარა ჯიხაიში",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Rondishi",
-        ka: "რონდიში",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Satsiskvilo",
-        ka: "საწისქვილო",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Satsulukidzeo",
-        ka: "საწულუკიძეო",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Sukhcha",
-        ka: "სუხჩა",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Udzlouri",
-        ka: "უძლოური",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Kveda Gordi",
-        ka: "ქვედა გორდი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Kveda Kinchkha",
-        ka: "ქვედა კინჩხა",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Kutiri",
-        ka: "ქუტირი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Gvedi",
-        ka: "ღვედი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Shua Gubi",
-        ka: "შუა გუბი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Chuneshi",
-        ka: "ჩუნეში",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Dzedzileti",
-        ka: "ძეძილეთი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Kharabauli",
-        ka: "ხარაბაული",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-    {
-      name: {
-        en: "Khidi",
-        ka: "ხიდი",
-      },
-      municipality: "66d9bba10cf1974d01a0c840",
-    },
-  ]);
+  // Village.insertMany([
+  //   {
+  //     name: {
+  //       en: "Akhalbediseuli",
+  //       ka: "ახალბედისეული",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Akhalsheni",
+  //       ka: "ახალშენი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Bangveti",
+  //       ka: "ბანგვეთი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Besiauri",
+  //       ka: "ბესიაური",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Gamogma Noga",
+  //       ka: "გამოღმა ნოღა",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "gagma Noga",
+  //       ka: "გაღმა ნოღა",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Gelaveri",
+  //       ka: "გელავერი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Gvazauri",
+  //       ka: "გვაზაური",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Gvashtibi",
+  //       ka: "გვაშტიბი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Gochajikhaishi",
+  //       ka: "გოჩაჯიხაიში",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Dedalauri",
+  //       ka: "დედალაური",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Didi gubi",
+  //       ka: "დიდი გუბი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Didi Kukhi",
+  //       ka: "დიდი კუხი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Zeda Gordi",
+  //       ka: "ზედა გორდი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Zeda Kinchkha",
+  //       ka: "ზედა კინჩხა",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Ivandidi",
+  //       ka: "ივანდიდი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Kinchkhaperdi",
+  //       ka: "კინჩხაფერდი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Kontuati",
+  //       ka: "კონტუათი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Lepilie",
+  //       ka: "ლეფილიე",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Matkhoji",
+  //       ka: "მათხოჯი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Nakhakhulevi",
+  //       ka: "ნახახულევი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Oragveti",
+  //       ka: "ორაგვეთი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Patara Gubi",
+  //       ka: "პატარა გუბი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "patara Kukhi",
+  //       ka: "პატარა კუხი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Patara Jikhaishi",
+  //       ka: "პატარა ჯიხაიში",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Rondishi",
+  //       ka: "რონდიში",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Satsiskvilo",
+  //       ka: "საწისქვილო",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Satsulukidzeo",
+  //       ka: "საწულუკიძეო",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Sukhcha",
+  //       ka: "სუხჩა",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Udzlouri",
+  //       ka: "უძლოური",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Kveda Gordi",
+  //       ka: "ქვედა გორდი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Kveda Kinchkha",
+  //       ka: "ქვედა კინჩხა",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Kutiri",
+  //       ka: "ქუტირი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Gvedi",
+  //       ka: "ღვედი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Shua Gubi",
+  //       ka: "შუა გუბი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Chuneshi",
+  //       ka: "ჩუნეში",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Dzedzileti",
+  //       ka: "ძეძილეთი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Kharabauli",
+  //       ka: "ხარაბაული",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  //   {
+  //     name: {
+  //       en: "Khidi",
+  //       ka: "ხიდი",
+  //     },
+  //     municipality: "66d9bba10cf1974d01a0c840",
+  //   },
+  // ]);
 
   res.send("success");
 });
@@ -326,11 +326,13 @@ app.post("/create", (req, res, next) => {
 //------ROUTES------//
 import oauthRouter from "./routes/oauth";
 import usersRouter from "./routes/users";
-import addressRouter from "./routes/address";
+import miscRouter from "./routes/misc";
+import verificationRouter from "./routes/verification";
 
 app.use("/api/oauth", oauthRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/address", addressRouter);
+app.use("/api/misc", miscRouter);
+app.use("/api/verification", verificationRouter);
 
 app.use(notFound);
 app.use(errorHandler);

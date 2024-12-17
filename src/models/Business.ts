@@ -41,7 +41,7 @@ export interface businessSchemaIFace {
     _id: string;
     value: string;
   }[];
-  plan: string;
+  plan: string | unknown;
   isVerified: boolean;
 }
 
@@ -90,11 +90,7 @@ const businessSchema = new mongoose.Schema<businessSchemaIFace>(
         value: { type: String },
       },
     ],
-    plan: {
-      type: String,
-      enum: ["free", "standard", "premium"],
-      default: "free",
-    },
+    plan: { type: mongoose.Schema.Types.ObjectId, ref: "Plan" },
     isVerified: { type: Boolean, default: false },
   },
   {

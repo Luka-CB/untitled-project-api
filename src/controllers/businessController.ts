@@ -40,6 +40,7 @@ export const registerBusiness: RequestHandler = expressAsyncHandler(
       categories: data.categories,
       links: data.links,
       tags: data.tags,
+      plan: data.plan?._id,
     });
 
     if (!newBusiness) throw new Error("Something went wrong!");
@@ -58,22 +59,10 @@ export const registerBusiness: RequestHandler = expressAsyncHandler(
       _id: newBusiness._id,
       username: newBusiness.username,
       image: newBusiness.image,
+      authType: newBusiness.authType,
       accessToken,
     };
 
     res.status(200).json({ msg: "success", user });
   }
 );
-
-///////////////--LOGOUT USER--///////////////
-// ROUTE - api/users/logout
-export const logout: RequestHandler = (req, res, next) => {
-  const cookies = req.cookies;
-  if (!cookies?.refreshToken) return res.sendStatus(204);
-  res.clearCookie("refreshToken", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict",
-  });
-  res.status(200).json({ msg: "Success" });
-};

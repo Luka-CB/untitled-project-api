@@ -2,6 +2,7 @@ import express from "express";
 import {
   fetchSessionUser,
   getRefreshToken,
+  login,
   logout,
   registerCustomer,
 } from "../controllers/usersController";
@@ -11,7 +12,8 @@ const router = express.Router();
 
 router.get("/fetch-session-user", fetchSessionUser);
 router.post("/refresh-token", getRefreshToken);
-router.post("/customer/register", registerCustomer);
+router.post("/register", registerCustomer);
+router.post("/login", login);
 router.get("/logout", logout);
 
 export default router;

@@ -35,6 +35,7 @@ passport.use(
             gender: "none",
             provider: profile.provider,
             providerId: profile.id,
+            isVerified: true,
           });
           done(null, user);
         }

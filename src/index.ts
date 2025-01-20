@@ -326,12 +326,14 @@ app.post("/create", (req, res, next) => {
 //------ROUTES------//
 import oauthRouter from "./routes/oauth";
 import usersRouter from "./routes/users";
+import busnessRouter from "./routes/business";
 import miscRouter from "./routes/misc";
 import verificationRouter from "./routes/verification";
 import planRouter from "./routes/plan";
 
 app.use("/api/oauth", oauthRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/business", busnessRouter);
 app.use("/api/misc", miscRouter);
 app.use("/api/verification", verificationRouter);
 app.use("/api/plan", planRouter);

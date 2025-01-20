@@ -8,6 +8,8 @@ import {
   uploadImage,
 } from "../utils";
 import Customer from "../models/Customer";
+import Business, { businessSchemaIFace } from "../models/Business";
+import { transporter } from "../config/nodemailer";
 
 ///////////////--FETCH SESSION USER--///////////////
 // ROUTE - GET - api/users/fetch-session-user
@@ -88,6 +90,50 @@ export const registerCustomer: RequestHandler = expressAsyncHandler(
     };
 
     res.status(200).json({ msg: "success", user });
+  }
+);
+
+///////////////--SIGN IN CUSTOMER--///////////////
+// ROUTE - POST - api/users/login
+export const login: RequestHandler = expressAsyncHandler(
+  async (req, res, next) => {
+    const { email, password, type, lang } = req.body;
+
+    let user: any;
+
+    if (type === "customer") {
+      user = await Customer.findOne({ email });
+    } else {
+      user = await Business.findOne({ email });
+    }
+
+    const emailErrMsg =
+      lang === "ka" ? "მეილი არასწორია!" : "Email is Incorrect!";
+    const passwordErrMsg =
+      lang === "ka" ? "ფასვორდი არასწორია!" : "Password is Incorrect!";
+
+    if (!user) throw new Error(emailErrMsg);
+    if (!(await user.matchPassword(password))) throw new Error(passwordErrMsg);
+
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    const userData = {
+      _id: user._id,
+      username: user.username,
+      image: user.image,
+      authType: user.authType,
+      accessToken,
+    };
+
+    res.status(200).json({ msg: "success", user: userData });
   }
 );
 

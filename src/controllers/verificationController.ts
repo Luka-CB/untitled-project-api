@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import expressAsyncHandler from "express-async-handler";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { customerSchemaIFace } from "../models/Customer";
 import Customer from "../models/Customer";
@@ -10,7 +11,7 @@ import Business, { businessSchemaIFace } from "../models/Business";
 // ROUTE - POST - api/verification/send-email?type
 export const sendEmail: RequestHandler = expressAsyncHandler(
   async (req, res, next) => {
-    const { type } = req.query;
+    const { type, lang } = req.query;
     let user: any;
 
     if (req.user && type === "customer") {
@@ -26,12 +27,14 @@ export const sendEmail: RequestHandler = expressAsyncHandler(
     });
 
     const verificationLink = `http://localhost:5173/verified?token=${token}`;
+    const htmlEng = `<h3>please click the link to <a href="${verificationLink}">verify your account</a></h3>`;
+    const htmlGeo = `<h3>გთხოვთ გადადით ლინკზე და <a href="${verificationLink}">დაადასტურეთ ანგარიში</a></h3>`;
 
     const result = await transporter.sendMail({
       from: process.env.EMAIL,
       to: user.email,
-      subject: "Email Verification",
-      html: `<h3>please click the link to <a href="${verificationLink}">verify your account</a></h3>`,
+      subject: lang === "ka" ? "მეილის დადასტურება" : "Email Verification",
+      html: lang === "ka" ? htmlGeo : htmlEng,
     });
 
     if (!result) throw new Error("Error sending email");
@@ -106,5 +109,75 @@ export const checkVerification: RequestHandler = expressAsyncHandler(
 
       res.status(200).json(status);
     }
+  }
+);
+
+///////////////--SEND AN EMAIL TO CHANGE PASSWORD--///////////////
+// ROUTE - POST - api/verification/password/send-email
+export const sendPasswordEmail: RequestHandler = expressAsyncHandler(
+  async (req, res, next) => {
+    const { email, type, lang } = req.body;
+
+    let user: any;
+
+    if (type === "customer") {
+      user = await Customer.findOne({ email });
+    } else {
+      user = await Business.findOne({ email });
+    }
+
+    if (!user)
+      throw new Error(
+        lang === "ka" ? "მეილი არასწორია" : "Email is Incorrect!"
+      );
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
+      expiresIn: "10m",
+    });
+
+    const verificationLink = `http://localhost:5173/password/change?token=${token}`;
+    const htmlEng = `<h3>please click the link to <a href="${verificationLink}">change password</a></h3>`;
+    const htmlGeo = `<h3>გთხოვთ გადადით ლინკზე, რომ <a href="${verificationLink}">შეცვალოთ ფასვორდი</a></h3>`;
+
+    const result = await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: lang === "ka" ? "ფასვორდის შეცვლა" : "Change Password",
+      html: lang === "ka" ? htmlGeo : htmlEng,
+    });
+
+    if (!result) throw new Error("Error sending email");
+
+    res.status(200).json({ msg: "Email sent successfully!", result });
+  }
+);
+
+///////////////--CHANGE PASSWORD--///////////////
+// ROUTE - PUT - api/verification/password/change
+export const changePassword: RequestHandler = expressAsyncHandler(
+  async (req, res, next) => {
+    const { password, token, type } = req.body;
+
+    const decoded: any = jwt.verify(
+      token as string,
+      process.env.JWT_SECRET as string
+    );
+    const hashedPassword = await bcrypt.hash(password, 8);
+
+    let updatedUser;
+    if (type === "customer") {
+      updatedUser = await Customer.updateOne(
+        { _id: decoded.id },
+        { password: hashedPassword }
+      );
+    } else {
+      updatedUser = await Business.updateOne(
+        { _id: decoded.id },
+        { password: hashedPassword }
+      );
+    }
+
+    if (!updatedUser) throw new Error("Request to change password has failed!");
+    res.status(200).json({ msg: "Password changed successfully!" });
   }
 );

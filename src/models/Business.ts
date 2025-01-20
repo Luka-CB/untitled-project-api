@@ -105,4 +105,8 @@ businessSchema.pre("save", async function (next) {
   }
 });
 
+businessSchema.methods.matchPassword = async function (inputPassword: string) {
+  return await bcrypt.compare(inputPassword, this.password);
+};
+
 export default mongoose.model<businessSchemaIFace>("Business", businessSchema);

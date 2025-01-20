@@ -1,6 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import Customer from "../models/Customer";
+import Customer, { customerSchemaIFace } from "../models/Customer";
 import { RequestHandler } from "express";
+import Business, { businessSchemaIFace } from "../models/Business";
 
 export const isAuth: RequestHandler = async (req, res, next) => {
   let token;
@@ -14,8 +15,20 @@ export const isAuth: RequestHandler = async (req, res, next) => {
         token,
         process.env.ACCESS_TOKEN_KEY as string
       );
-      req.user =
-        (await Customer.findById(decoded.id).select("-password")) || {};
+
+      const customer: customerSchemaIFace | null =
+        (await Customer.findById(decoded.id).select("-password")) || null;
+      const business: businessSchemaIFace | null =
+        (await Business.findById(decoded.id).select("-password")) || null;
+
+      if (customer) {
+        req.user = customer;
+      } else if (business) {
+        req.user = business;
+      } else {
+        req.user = undefined;
+      }
+
       next();
     } catch (error) {
       return res.status(401).json({ msg: "Not authorized, token failed!" });

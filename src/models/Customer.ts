@@ -15,6 +15,7 @@ export interface customerSchemaIFace {
   provider: string;
   providerId: string;
   isVerified: boolean;
+  matchPassword?: any;
 }
 
 const customerSchema = new mongoose.Schema<customerSchemaIFace>(
@@ -47,5 +48,9 @@ customerSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 8);
   }
 });
+
+customerSchema.methods.matchPassword = async function (inputPassword: string) {
+  return await bcrypt.compare(inputPassword, this.password);
+};
 
 export default mongoose.model<customerSchemaIFace>("Customer", customerSchema);

@@ -93,6 +93,45 @@ export const registerCustomer: RequestHandler = expressAsyncHandler(
   }
 );
 
+///////////////--GET USER PROFILE--///////////////
+// ROUTE - POST - api/users/login
+export const getProfile: RequestHandler = expressAsyncHandler(
+  async (req, res) => {
+    const user = req.user as customerSchemaIFace | businessSchemaIFace;
+    if (!user) throw new Error("No user found!");
+
+    if (user.authType === "customer") {
+      const customer = await Customer.findById(user._id);
+      if (!customer) throw new Error("No customer found!");
+
+      res.status(200).json({
+        _id: customer._id,
+        firstName: customer.firstName,
+        lastName: customer.lastName,
+        email: customer.email,
+        image: customer.image,
+      });
+    } else {
+      const business = await Business.findById(user._id);
+      if (!business) throw new Error("No business found!");
+
+      res.status(200).json({
+        _id: business._id,
+        firstName: business.firstName,
+        lastName: business.lastName,
+        email: business.email,
+        image: business.image,
+        bannerImage: business.bannerImage,
+        companyName: business.companyName,
+        est: business.est,
+        description: business.description,
+        addresses: business.addresses,
+        links: business.links,
+      });
+    }
+  }
+);
+
 ///////////////--SIGN IN CUSTOMER--///////////////
 // ROUTE - POST - api/users/login
 export const login: RequestHandler = expressAsyncHandler(

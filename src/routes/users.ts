@@ -1,6 +1,7 @@
 import express from "express";
 import {
   fetchSessionUser,
+  getProfile,
   getRefreshToken,
   login,
   logout,
@@ -14,6 +15,7 @@ router.get("/fetch-session-user", fetchSessionUser);
 router.post("/refresh-token", getRefreshToken);
 router.post("/register", registerCustomer);
 router.post("/login", login);
+router.get("/profile", isAuth, getProfile);
 router.get("/logout", logout);
 
 export default router;

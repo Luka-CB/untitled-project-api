@@ -21,6 +21,8 @@ export interface businessSchemaIFace {
   gender: string;
   image: string;
   imageId: string;
+  bannerImage: string;
+  bannerImageId: string;
   companyName: string;
   est: string;
   description: string;
@@ -55,6 +57,8 @@ const businessSchema = new mongoose.Schema<businessSchemaIFace>(
     gender: { type: String, required: true },
     image: { type: String },
     imageId: { type: String },
+    bannerImage: { type: String },
+    bannerImageId: { type: String },
     companyName: { type: String, required: true },
     est: { type: String },
     description: { type: String },

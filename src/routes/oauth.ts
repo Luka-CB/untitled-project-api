@@ -5,7 +5,10 @@ const router = express.Router();
 
 router.get(
   "/login/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    failureMessage: true,
+  })
 );
 
 router.get(
@@ -14,7 +17,6 @@ router.get(
     scope: ["profile", "email"],
     successMessage: "success",
     successRedirect: "http://localhost:5173/redirect",
-    failureRedirect: "/login/failed",
   })
 );
 

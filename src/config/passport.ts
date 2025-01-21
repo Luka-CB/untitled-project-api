@@ -14,6 +14,15 @@ passport.use(
     },
     async (accessToken: any, refreshToken: any, profile: any, done: any) => {
       try {
+        const existingUser = await Customer.findOne({
+          email: profile.emails[0].value,
+        });
+
+        if (existingUser && existingUser.provider === "local")
+          throw new Error(
+            `Email "${profile.emails[0].value}" is already exists in our database!`
+          );
+
         let user = await Customer.findOne({ providerId: profile.id });
 
         if (user) {
@@ -23,13 +32,16 @@ passport.use(
             username: profile.displayName,
             email: profile.emails[0].value,
             image: profile.photos[0].value,
+            gender: "none",
             provider: profile.provider,
             providerId: profile.id,
+            isVerified: true,
           });
           done(null, user);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        console.error(error.message);
+        done(error, false);
       }
     }
   )
